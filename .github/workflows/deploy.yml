@@ -2,26 +2,28 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]  # or 'master' if that's your default
+    branches: [main]  # Change to 'master' if your default branch is master
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v3
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v1
         with:
-          path: .  # This includes your HTML file
+          path: .  # Deploy everything in the repo root, including index.html
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v1
